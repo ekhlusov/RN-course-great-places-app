@@ -10,6 +10,7 @@ import {
 import { theme } from '../constants/theme';
 import { useDispatch } from 'react-redux';
 import { addPlace } from '../store/actions/places.actions';
+import ImagePickerComponent from '../components/ImagePicker.component';
 
 const NewPlaceScreen = props => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const NewPlaceScreen = props => {
   };
 
   return (
-    <ScrollView style={styles.screen}>
+    <ScrollView>
       <View style={styles.form}>
         <Text style={styles.label}>Title</Text>
 
@@ -32,6 +33,8 @@ const NewPlaceScreen = props => {
           onChangeText={titleChangeHandler}
           value={titleValue}
         />
+
+        <ImagePickerComponent />
 
         <Button
           title="Save Place"
