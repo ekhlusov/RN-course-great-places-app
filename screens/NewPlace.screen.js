@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   View,
   StyleSheet,
@@ -17,11 +17,17 @@ const NewPlaceScreen = props => {
   const dispatch = useDispatch();
   const [titleValue, setTitleValue] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState(null);
 
   const titleChangeHandler = text => setTitleValue(text);
 
+  const locationPickedHandler = useCallback(
+    location => setSelectedLocation(location),
+    [selectedLocation]
+  );
+
   const savePlaceHandler = () => {
-    dispatch(addPlace(titleValue, selectedImage));
+    dispatch(addPlace(titleValue, selectedImage, selectedLocation));
     props.navigation.goBack();
   };
 
@@ -39,7 +45,10 @@ const NewPlaceScreen = props => {
         />
 
         <ImagePickerComponent onImageTaken={imageTakenHandler} />
-        <LocationPickerComponent />
+        <LocationPickerComponent
+          navigation={props.navigation}
+          onLocationPicked={locationPickedHandler}
+        />
 
         <Button
           title="Save Place"

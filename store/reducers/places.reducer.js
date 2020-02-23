@@ -8,11 +8,13 @@ const INITIAL_STATE = {
 export const placesReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_PLACE: {
-      console.log('ADD_PLACE', action.payload);
       const newPlace = new PlaceModel(
         action.payload.id.toString(),
         action.payload.title,
-        action.payload.image
+        action.payload.image,
+        action.payload.address,
+        action.payload.coords.lat,
+        action.payload.coords.lng
       );
       return {
         places: state.places.concat(newPlace)
@@ -23,7 +25,14 @@ export const placesReducer = (state = INITIAL_STATE, action) => {
       return {
         places: action.payload.map(
           place =>
-            new PlaceModel(place.id.toString(), place.title, place.imageUri)
+            new PlaceModel(
+              place.id.toString(),
+              place.title,
+              place.imageUri,
+              place.address,
+              place.lat,
+              place.lng
+            )
         )
       };
     }
