@@ -1,4 +1,4 @@
-import { ADD_PLACE } from '../actions/places.actions';
+import { ADD_PLACE, SET_PLACES } from '../actions/places.actions';
 import PlaceModel from '../../models/place.model';
 
 const INITIAL_STATE = {
@@ -8,12 +8,23 @@ const INITIAL_STATE = {
 export const placesReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_PLACE: {
+      console.log('ADD_PLACE', action.payload);
       const newPlace = new PlaceModel(
-        new Date().toString(),
-        action.payload.title
+        action.payload.id.toString(),
+        action.payload.title,
+        action.payload.image
       );
       return {
         places: state.places.concat(newPlace)
+      };
+    }
+
+    case SET_PLACES: {
+      return {
+        places: action.payload.map(
+          place =>
+            new PlaceModel(place.id.toString(), place.title, place.imageUri)
+        )
       };
     }
 

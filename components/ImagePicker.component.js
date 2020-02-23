@@ -31,8 +31,9 @@ const ImagePickerComponent = props => {
       quality: 0.5
     });
 
-    console.log(takenImage.uri);
     setPickedImage(takenImage.uri);
+
+    props.onImageTaken(takenImage.uri);
   };
 
   return (
@@ -55,7 +56,8 @@ const ImagePickerComponent = props => {
 
 const styles = StyleSheet.create({
   screen: {
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: 15
   },
   imagePreview: {
     width: '100%',
